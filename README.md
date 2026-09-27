@@ -7,7 +7,7 @@ Windows C 盘 / 数据盘**安全清理与迁移**的 Agent Skill。只读扫描
 > - 回收站配额防护（防止大文件被静默永久删除）
 > - 文件锁定源排查与降级隔离策略
 > - 缓存迁移到数据盘的标准流程（HuggingFace/pip/npm/uv 等 8 个环境变量）
-> - 软件彻底卸载模板（DevEco Studio / Docker Desktop 实战案例）
+> - 软件彻底卸载模板（ Docker Desktop 实战案例）
 > - 24 条来自真实清理会话的踩坑记录
 
 ## 为什么需要它
@@ -50,7 +50,7 @@ Agent 会：只读扫描 → 出分级报告（绿=可再生/黄=需确认/红=�
 
 - references/pitfalls.md — 24 条实战踩坑：回收站 API 失效、配额静默硬删、PowerShell 循环变量残留导致误删注册表键、dism 后不重启导致卸载器挂死……每条 = 症状 → 根因 → 解法
 - references/cache-locations.md — 缓存位置知识库：微信 4.x/QQ NT/企微/罗技 G HUB/JetBrains/各 AI Agent Harness 的数据路径、锁定者、迁移变量
-- references/uninstall-guide.md — 彻底卸载模板：官方卸载器超时保护、残留核验清单、DevEco/Docker 实战案例
+- references/uninstall-guide.md — 彻底卸载模板：官方卸载器超时保护、残留核验清单、JetBrains 系 IDE/Docker 实战案例
 
 ## 安全承诺
 

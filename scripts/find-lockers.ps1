@@ -6,12 +6,11 @@ $ErrorActionPreference = 'SilentlyContinue'
 $targets = @(
   @{ P = 'C:\ProgramData\LGHUB\cache';   App = 'Logitech G HUB (stop service: LGHUBUpdaterService)' },
   @{ P = "$env:APPDATA\Tencent\xwechat"; App = 'WeChat 4.x (Weixin.exe + WeChatAppEx*)' },
-  @{ P = "$env:APPDATA\Tencent\WXWork";  App = 'WeCom (WXWork.exe)' },
   @{ P = "$env:LOCALAPPDATA\npm-cache";  App = 'node / IDE terminals' }
 )
 
 Write-Output "===== 1. related running processes ====="
-$patterns = 'lghub|Weixin|WeChat|WXWork|codex|cherry|opencode|CodeBuddy|workbuddy|node|msedge|chrome'
+$patterns = 'lghub|Weixin|WeChat|WXWork|node|msedge|chrome'
 Get-Process | Where-Object {
   $_.ProcessName -match $patterns -or ($_.Path -and $_.Path -match $patterns)
 } | Select-Object ProcessName, Id, @{n='Path';e={if ($_.Path) { $_.Path } else { '(system/elevated)' }}} |

@@ -9,13 +9,12 @@
 5. **数据残留**：最后删除（可能含用户数据，先列表确认）
 6. **验证**：全盘扫描厂商关键词 = 0 命中
 
-## 案例 1：DevEco Studio（JetBrains 系）
+## 案例 1：JetBrains 系 IDE（IntelliJ / PyCharm / Android Studio / DevEco Studio 等）
 
-- 官方卸载器：`<install>\bin\Uninstall.exe /S`，本次 10 秒退出 code=0 但目录仍在 → 补刀 `Remove-Item`
-- C 盘数据：`%APPDATA%\Huawei\<产品名>`（含插件 0.5GB）、`%LOCALAPPDATA%\Huawei`、`~\.hvigor`、`~\.ohpm`
-- 注册表：`HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\<产品>` + `HKLM:\SOFTWARE\WOW6432Node\Huawei`
-- 教训：**遍历注册表判断归属时循环变量必须先置 null**，否则会误删相邻键（本次误删 Windows 占位键 DirectDrawEx/DXM_Runtime 后已重建）
-- JetBrains 系通用残留位置：`%APPDATA%\<Vendor>\<产品><版本>`、`%LOCALAPPDATA%\<Vendor>\<产品><版本>`
+- 官方卸载器：`<install>\bin\Uninstall.exe /S`，可能秒退 code=0 但目录仍在 → 补刀 `Remove-Item`
+- 数据目录模式：`%APPDATA%\<Vendor>\<产品><版本>`（配置+插件）、`%LOCALAPPDATA%\<Vendor>\<产品><版本>`（缓存+索引）、`~\.<工具名>`（配套构建工具，如 `~\.gradle`、`~\.hvigor`、`~\.m2`）
+- 注册表：`HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\<产品>` + 厂商 hive（如 `HKLM:\SOFTWARE\WOW6432Node\<Vendor>`）
+- 教训：**遍历注册表判断归属时循环变量必须先置 null**，否则会误删相邻键（实测曾误删 Windows 占位键 DirectDrawEx/DXM_Runtime 后重建才恢复）
 
 ## 案例 2：Docker Desktop（WSL2 后端）
 
