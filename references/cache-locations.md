@@ -36,8 +36,6 @@
 
 | 应用 | 缓存 | 锁定者 | 处理 |
 |---|---|---|---|
-| 罗技 G HUB | `C:\ProgramData\LGHUB\cache`（更新下载缓存，可达数 GB） | lghub_agent + **LGHUBUpdaterService（服务）** | 提权停服务→清→启服务→重启 lghub.exe |
-| 罗技 depots | `C:\ProgramData\LGHUB\depots` | 同上 | 删后自动重下 |
 | Edge/Chrome | `...\User Data\Default\{Cache,Code Cache,GPUCache}` | 多进程 | 逐文件清可清大部分 |
 | 缩略图 | `%LOCALAPPDATA%\Microsoft\Windows\Explorer\thumbcache_*.db` | explorer.exe | 停 explorer 再删（可选） |
 | 系统临时 | `%LOCALAPPDATA%\Temp` | 各种运行中程序 | 能清多少清多少，重启后再清一次 |
