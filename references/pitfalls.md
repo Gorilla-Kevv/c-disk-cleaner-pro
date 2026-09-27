@@ -70,8 +70,8 @@
 解法：卸载后必须核验安装目录/服务/注册表 Uninstall 条目是否还在，残留用脚本补刀。
 
 ### C3. SYSTEM 服务进程杀不掉
-`Stop-Process` 对以 SYSTEM 运行的服务进程（如 `lghub_updater`）无效。
-解法：`Stop-Service <服务名>`（提权）。清完缓存记得把服务 `Start-Service` 拉回来、重启应用。罗技的服务名是 `LGHUBUpdaterService`。
+`Stop-Process` 对以 SYSTEM 运行的服务进程无效（典型：厂商后台更新服务）。
+解法：`Stop-Service <服务名>`（提权）。清完缓存记得把服务 `Start-Service` 拉回来、重启应用。服务名用 `Get-CimInstance Win32_Service | Where-Object { $_.PathName -match '<厂商关键词>' }` 定位。
 
 ### C4. 零数据判断四条件
 判断某软件"可以放心硬清残留"需要同时满足：无 WSL 发行版（如适用）+ 无 vhdx/数据文件 + 无服务 + 无 Uninstall 注册表条目。任一不满足则先走数据迁移/备份。
