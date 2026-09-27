@@ -51,7 +51,7 @@ Get-ChildItem 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucke
 统计回收站用 `scripts/recycle-stats.ps1`（SHQueryRecycleBin API）。**不要枚举 `C:\$Recycle.Bin`**——SID 子目录权限会中断枚举，显示 0 不可信。
 
 ### Step 4 — 锁定预检
-运行 `scripts/find-lockers.ps1`，确认目标缓存没有被运行中的应用/服务/后台清理任务锁定。常见锁定源见 `references/cache-locations.md`。
+运行 `scripts/find-lockers.ps1 -Path <目标路径数组>`（路径由本次任务决定，脚本不预设任何应用）。它会通用排查：二进制位于目标下的服务、可执行/命令行引用目标的进程、残留的 PowerShell 会话，并可用 `-ProbeFiles` 独占打开试探精确列出被锁文件。常见应用的锁定模式见 `references/cache-locations.md`。
 
 ### Step 5 — 批量清理（主力）
 把目标路径清单写入 JSON，运行 `scripts/clean-batch.ps1 -Manifest clean.json`：
@@ -110,7 +110,7 @@ Get-ChildItem 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucke
 |---|---|---|
 | `scripts/scan.ps1` | 全盘只读扫描 | `powershell -File scan.ps1` |
 | `scripts/recycle-stats.ps1` | 回收站真实占用（SHQueryRecycleBin） | `powershell -File recycle-stats.ps1` |
-| `scripts/find-lockers.ps1` | 锁定进程排查 | 编辑 $targets 后运行 |
+| `scripts/find-lockers.ps1` | 通用锁定排查（服务/进程/命令行/句柄试探，无预设应用） | `powershell -File find-lockers.ps1 -Path <目标路径>` |
 | `scripts/clean-batch.ps1` | 批量回收站清理（配额检查+降级隔离） | `powershell -File clean-batch.ps1 -Manifest clean.json` |
 
 clean.json 格式：
